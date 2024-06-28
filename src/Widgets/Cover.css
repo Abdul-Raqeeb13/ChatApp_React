@@ -1,0 +1,105 @@
+.poster{
+    background-image: url(../Assets/Images/bg.svg);
+    /* background-image: url(); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 89vh;
+    background-position: 20% 80%;
+}
+
+.coverText{
+    position : absolute ;
+    top : 130px ;
+    left : 80px
+}
+
+.coverPhoto{
+    height : 120vh ;
+    position : absolute ; 
+    top : -100px ;
+    right : 180px;
+}
+
+@media screen and (max-width:950px) {
+    .coverPhoto{
+        height : 110vh ;
+        top : -80px ;
+        right : 90px;
+    }
+    .coverText{
+        position : absolute ;
+        top : 130px ;
+        left : 50px
+    }
+    
+}
+
+@media screen and (max-width:750px) {
+    .coverPhoto{
+        height : 100vh ;
+        top : -50px ;
+        right : 0px;
+    }
+    .coverText{
+        left : 30px;
+        
+    }
+    .coverText h1{
+        font-size: 25px;
+    }
+    .coverText h3{
+        font-size: 20px;
+    }
+    .coverText h4{
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width:550px) {
+    .coverPhoto{
+        display: none;
+    }
+    .coverText{
+        left : 80px;
+        text-align: center;
+        
+    }
+    .coverText h1{
+        font-size: 35px;
+    }
+    .coverText h3{
+        font-size: 25px;
+    }
+    .coverText h4{
+        font-size: 25px;
+    }
+}
+
+@media screen and (max-width:475px) {
+    .coverText{
+        left : 40px;
+    }  
+}
+
+@media screen and (max-width:405px) {
+    .coverText{
+        
+        left : 35px;
+      
+        
+    }  
+    .coverText h1{
+        font-size: 37px;
+    }
+    .coverText h3{
+        font-size: 24px;
+    }
+    .coverText h4{
+        font-size: 22px;
+    }
+    .poster{
+        height:80vh;
+    }
+}
+
