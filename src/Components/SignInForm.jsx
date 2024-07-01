@@ -23,6 +23,8 @@ export default function SignInForm() {
                     localStorage.setItem("UserID" , user.uid)
                     localStorage.setItem("Name" , snap.data()["userName"])
                     localStorage.setItem("Email" , email)
+                    localStorage.setItem("Profileimage" ,snap.data()["ProfileImage"])
+
                     // console.log("complete");
 
                 })
