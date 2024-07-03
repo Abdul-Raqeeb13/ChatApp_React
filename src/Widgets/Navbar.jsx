@@ -14,10 +14,13 @@ export default function NavbarCom() {
                     <Navbar.Brand href="#home">Chatting App</Navbar.Brand>
                     <Nav className="ms-auto">
                         <Nav.Link>
-                            <Link className='text-black text-decoration-none' to={"/"}>Home</Link>
+                            <Link className='text-black text-decoration-none' to={"/Home"}>Home</Link>
                         </Nav.Link>
                         <Nav.Link>
                             <Link className='text-black text-decoration-none' to={"/FindFriends"}>Find Friends</Link>
+                        </Nav.Link>
+                        <Nav.Link>
+                            <Link className='text-black text-decoration-none' to={"/Requests"}>Requests</Link>
                         </Nav.Link>
                         <Nav.Link>
                             <Link className='text-black text-decoration-none' to={"/Friends"}>Friends</Link>

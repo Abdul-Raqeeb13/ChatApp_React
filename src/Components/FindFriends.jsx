@@ -8,21 +8,65 @@ export default function FindFriends() {
 
   var loginUserId = localStorage.getItem("UserID")
   const [users, setUsers] = useState([])
+  var data = []
 
+  // get all user without login id
   const getUsers = async () => {
     await store.collection("users").where("userID", "!=", loginUserId).get()
       .then((snap) => {
-        var data = []
-        snap.forEach((doc) => {
-          console.log(doc.id, "=>", doc.data());
+
+        snap.forEach(async (doc) => {
+          // console.log(doc.id, "=>", doc.data());
+
           doc.data["send_status"] = false
           data.push(doc.data())
         })
-        setUsers(data)
+
       })
       .catch((e) => {
         console.log(e);
       })
+
+
+    var senderRequest = []
+    // get all user which have sent a request to me
+    await store.collection("Requests").where("SenderID", "==", loginUserId).get()
+      .then((snap) => {
+        snap.forEach((doc) => {
+          console.log(doc);
+          console.log(doc.data());
+          senderRequest.push(doc.data())
+        })
+      })
+
+
+    var ReceiverRequest = []
+    // get all user that i have send a request
+    await store.collection("Requests").where("ReceiverID", "==", loginUserId).get()
+      .then((snap) => {
+        snap.forEach((doc) => {
+          console.log(doc);
+          console.log(doc.data());
+          ReceiverRequest.push(doc.data())
+        })
+      })
+
+    var allRequest = [...senderRequest, ...ReceiverRequest]
+    console.log(allRequest);
+
+    const filterdata = data.filter((user) => {
+      console.log(user.userID);
+      console.log(loginUserId);
+      return !allRequest.some(
+        request =>
+          (request.SenderID == loginUserId && request.ReceiverID == user.userID) ||
+          (request.SenderID == user.userID && request.ReceiverID == loginUserId)
+      )
+    })
+
+    // console.log(filterdata);
+    setUsers(filterdata)
+
   }
 
   const sendRequest = async (index) => {
