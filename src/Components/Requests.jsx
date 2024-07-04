@@ -57,6 +57,7 @@ export default function Requests() {
     setRequest([...request])
 
     await store.collection("Conversation").doc(roomId).set({
+      Receiverid : userData["ReceiverID"],
       Receiveremail: userData["Receiveremail"],
       Receiverimage: userData["Receiverimage"],
       Receivername: userData["Receivername"],
@@ -83,7 +84,10 @@ export default function Requests() {
   const navigateToChat=(index)=>{
     console.log("Hello");
     console.log(request[index]["roomId"]);
+    localStorage.setItem("roomID" , request[index]["roomId"])
+    nav("/MessageScreen")
   }
+
 
   return (
     <div>

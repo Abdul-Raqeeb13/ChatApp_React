@@ -138,12 +138,6 @@ export default function FindFriends() {
       {/* Navbar */}
       <Navbar />
 
-      {/* Filter friends button */}
-      <div className="container-fluid py-2 text-center" style={{ backgroundColor: "gray" }}>
-        <button className='btn btn-success'>All Friends</button>
-        <button className='btn btn-warning ms-3'>Pending Requests</button>
-      </div>
-
       {/* Friends or users */}
       <div className="container-fluid">
         <div className="row">
