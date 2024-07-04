@@ -23,7 +23,7 @@ export default function NavbarCom() {
                             <Link className='text-black text-decoration-none' to={"/Requests"}>Requests</Link>
                         </Nav.Link>
                         <Nav.Link>
-                            <Link className='text-black text-decoration-none' to={"/Friends"}>Friends</Link>
+                            <Link className='text-black text-decoration-none' to={"/MessageScreen"}>Messages</Link>
                         </Nav.Link>
                     </Nav>
                 </Container>
