@@ -43,7 +43,10 @@ export default function MessageScreen() {
       receiverID: roomData[0]["SenderID"] === id ? roomData[0]["Receiverid"] : roomData[0]["SenderID"],
       roomid: roomData[0]["roomId"],
       Messagekey: messagekey,
-      timestamp: new Date()
+      timestamp: new Date(),
+      senderDelete : false,
+      receiverDelete : false
+
     }
 
     await store.collection("Messages").doc(messagekey).set(Message)
@@ -54,6 +57,27 @@ export default function MessageScreen() {
       .catch((e) => {
         console.log("Error in sending a message", e);
       })
+  }
+
+  // delete for every one 
+  const deleteForEveryOne=async (messageid)=>{
+    await store.collection("Messages").doc(messageid).delete()
+    console.log("delete");
+
+  }
+
+
+  // only delete for me
+  const deleteForMe=async (messageid ,sender)=>{
+    
+    console.log(messageid);
+    var updatedata = sender == true ? {
+      senderDelete : true
+    } : 
+    {
+      receiverDelete : true
+    }
+    await store.collection("Messages").doc(messageid).update(updatedata)
   }
 
   useEffect(() => {
@@ -77,13 +101,56 @@ export default function MessageScreen() {
       <Navbar />
       <div className="container" >
         {Array.isArray(message) && message.map((v, i) => (
+          <>
+
+         {
+          v.senderId == id && v.senderDelete == false ?
           <div key={i}>
             {v.senderId === id ? 
-              <h3 style={{ textAlign: "right", marginBottom: "80px" }}>{v.message} <hr /> </h3> : 
-              <h3 style={{ textAlign: "left", marginBottom: "80px" }}>{v.message} <hr /> </h3>}
+            <>
+              <h3 style={{ textAlign: "right", marginTop:"20px", marginBottom: "40px" }}>{v.message }  </h3>  <button className='btn btn-danger' 
+              onClick={ v.senderId == id ? ()=>deleteForEveryOne(v.Messagekey) : ()=>{}}  
+              style={{float:"right"}}>Delete for every one</button> 
+              
+              <button className='btn btn-danger' onClick={ v.senderId == id ? ()=>deleteForMe(v.Messagekey ,true) : ()=>deleteForMe(v.Messagekey ,false)}  
+              style={{float:"right"}}>Delete for me</button>   <hr  style={{marginTop:"110px"}}/> 
+             
+              </>: 
+
+              <>
+              <h3 style={{ textAlign: "left",marginTop:"20px", marginBottom: "40px" }}> {v.message} </h3>
+              <button className='btn btn-danger' onClick={ v.senderId == id ? ()=>deleteForMe(v.Messagekey ,true) : ()=>deleteForMe(v.Messagekey ,false)}  
+              style={{float:"left"}}>Delete for me</button> 
+                <hr  style={{marginTop:"100px"}}/>
+                   </>}
           </div>
+          :
+          v.senderId != id && v.receiverDelete == false ?
+          <div key={i}>
+          {v.senderId === id ? 
+          <>
+            <h3 style={{ textAlign: "right", marginTop:"20px", marginBottom: "40px" }}>{v.message }  </h3>  <button className='btn btn-danger' 
+            onClick={ v.senderId == id ? ()=>deleteForEveryOne(v.Messagekey) : ()=>{}}  
+            style={{float:"right"}}>Delete for every one</button> 
+            
+            <button className='btn btn-danger' onClick={ v.senderId == id ? ()=>deleteForMe(v.Messagekey ,true) : ()=>deleteForMe(v.Messagekey ,false)}  
+            style={{float:"right"}}>Delete for me</button>   <hr  style={{marginTop:"110px"}}/> 
+           
+            </>: 
+
+            <>
+            <h3 style={{ textAlign: "left",marginTop:"20px", marginBottom: "40px" }}> {v.message} </h3>
+            <button className='btn btn-danger' onClick={ v.senderId == id ? ()=>deleteForMe(v.Messagekey ,true) : ()=>deleteForMe(v.Messagekey ,false)}  
+            style={{float:"left"}}>Delete for me</button> 
+              <hr  style={{marginTop:"100px"}}/>
+                 </>}
+        </div>
+        :
+        <></>
+         }
+         </>
         ))}
-      </div>
+       </div>
       <div className="container-fluid bg-secondary position-fixed bottom-0 py-md-3 ps-md-5 py-2">
         <div className="row">
           <div className="col-lg-11 col-md-10 col-sm-8 col-10">
