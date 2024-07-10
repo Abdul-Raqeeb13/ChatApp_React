@@ -33,8 +33,8 @@ export default function FindFriends() {
     await store.collection("Requests").where("SenderID", "==", loginUserId).get()
       .then((snap) => {
         snap.forEach((doc) => {
-          console.log(doc);
-          console.log(doc.data());
+          // console.log(doc);
+          // console.log(doc.data());
           senderRequest.push(doc.data())
         })
       })
@@ -45,18 +45,18 @@ export default function FindFriends() {
     await store.collection("Requests").where("ReceiverID", "==", loginUserId).get()
       .then((snap) => {
         snap.forEach((doc) => {
-          console.log(doc);
-          console.log(doc.data());
+          // console.log(doc);
+          // console.log(doc.data());
           ReceiverRequest.push(doc.data())
         })
       })
 
     var allRequest = [...senderRequest, ...ReceiverRequest]
-    console.log(allRequest);
+    // console.log(allRequest);
 
     const filterdata = data.filter((user) => {
-      console.log(user.userID);
-      console.log(loginUserId);
+      // console.log(user.userID);
+      // console.log(loginUserId);
       return !allRequest.some(
         request =>
           (request.SenderID == loginUserId && request.ReceiverID == user.userID) ||
@@ -70,7 +70,7 @@ export default function FindFriends() {
   }
 
   const sendRequest = async (index) => {
-    console.log(users[index]);
+    // console.log(users[index]);
 
 
     var id = localStorage.getItem("UserID")
@@ -94,21 +94,21 @@ export default function FindFriends() {
       "Requeststatus": "Pending"
     }
 
-    console.log(obj);
+    // console.log(obj);
     await store.collection("Requests").doc(key).set(obj)
       .then((snap) => {
         alert("Request send")
         users[index]["send_status"] = true
         users[index]["RequestID"] = key
         // var updatedData = users.filter((_, i) => i != index)
-        console.log(users);
+        // console.log(users);
       })
       .catch((e) => {
         console.log(e);
       })
 
     setUsers([...users])
-    console.log(users);
+    // console.log(users);
 
 
   }
@@ -147,6 +147,7 @@ export default function FindFriends() {
               return (
                 <div className="col-md-4 col-sm-6 col-12 p-md-2 p-lg-5 p-3">
                   <div class="card p-3" style={{ boxShadow: " 9px 12px 24px -8px rgba(117,117,117,1)" }}>
+                   
                     <img src={value.ProfileImage} class="card-img-top" alt="..." />
                     <div class="card-body">
                       <h5 class="card-title">{value.userName}</h5>

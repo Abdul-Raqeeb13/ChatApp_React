@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 import { Route , Routes } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.css'; // Ensure this CSS is imported
 import Home from './Components/Home';
 import FindFriends from './Components/FindFriends';
 import Friends from './Components/Friends';
